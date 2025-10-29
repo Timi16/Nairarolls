@@ -11,15 +11,15 @@ import { Building2, Wallet, Mail, Lock, ArrowLeft, Shield, CheckCircle } from 'l
 import { useAppStore } from '@/lib/store'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { useAccount } from "@/lib/thirdweb-hooks";
 import { toast } from 'sonner'
-import ConnectWallet from '@/components/ConnectWallet'
+import { PushWalletButton } from '@/components/PushWalletButton'
+import { usePushChainPayroll } from '@/hooks/usePushChainPayroll'
 
 
 export default function LoginPage() {
   const [isLoading, setIsLoading] = useState(false)
   const [loginMethod, setLoginMethod] = useState<'wallet' | 'email'>('wallet')
-  const { isConnected, account } = useAccount();
+  const { isConnected, account } = usePushChainPayroll();
   const { setUser, setOrganization } = useAppStore()
   const router = useRouter()
 
@@ -36,7 +36,7 @@ export default function LoginPage() {
       
       const mockUser = {
         id: '1',
-        walletAddress: account?.address || '',
+        walletAddress: account || '',
         email: 'admin@democorp.com',
         organizationId: 'org-1',
         role: 'admin' as const
@@ -45,9 +45,9 @@ export default function LoginPage() {
       const mockOrganization = {
         id: 'org-1',
         name: 'Demo Corporation',
-        walletAddress: account?.address || '',
+        walletAddress: account || '',
         multisigThreshold: 2,
-        signers: [account?.address || ''],
+        signers: [account || ''],
         cNGNBalance: '2500000'
       }
 
@@ -83,7 +83,7 @@ export default function LoginPage() {
           <div className="flex items-center gap-3 mb-8">
             <Building2 className="h-10 w-10" />
             <div>
-              <h1 className="text-2xl font-bold">Dizburza</h1>
+              <h1 className="text-2xl font-bold">NairaRolls</h1>
               <Badge variant="secondary" className="mt-1">
                 Enterprise
               </Badge>
@@ -129,7 +129,7 @@ export default function LoginPage() {
             </Link>
             <h1 className="text-2xl font-bold dark:text-white">Welcome back</h1>
             <p className="text-muted-foreground mt-2">
-              Sign in to your Dizburza account
+              Sign in to your NairaRolls account
             </p>
           </div>
 
@@ -176,10 +176,7 @@ export default function LoginPage() {
                       {isLoading ? 'Connecting...' : 'Connect Wallet'}
                     </Button> */}
                     <div className="flex justify-center">
-                      <ConnectWallet
-                        label="Connect Wallet"
-                        onConnect={handleWalletLogin}
-                      />
+                      <PushWalletButton />
                     </div>
                   </div>
 

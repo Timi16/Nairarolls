@@ -190,7 +190,7 @@ export default function RegisterPage() {
 
       toast({
         title: "Registration successful!",
-        description: "Welcome to Dizburza. Check your email for next steps.",
+        description: "Welcome to NairaRolls. Check your email for next steps.",
       });
 
       // Redirect to onboarding or dashboard
@@ -419,7 +419,7 @@ export default function RegisterPage() {
           <div className="flex items-center gap-3 mb-8">
             <Building2 className="h-10 w-10" />
             <div>
-              <h1 className="text-2xl font-bold">Dizburza</h1>
+              <h1 className="text-2xl font-bold">NairaRolls</h1>
               <Badge variant="secondary" className="mt-1">
                 Enterprise
               </Badge>

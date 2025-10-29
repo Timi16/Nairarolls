@@ -341,7 +341,7 @@ export const useAppStore = create<AppState>()(
         }),
     }),
     {
-      name: "dizburza-storage",
+      name: "NairaRolls-storage",
       partialize: (state) => ({
         user: state.user,
         organization: state.organization,

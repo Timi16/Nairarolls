@@ -1,5 +1,8 @@
 "use client";
 
+// Disable static generation for this page (requires wallet connection)
+export const dynamic = 'force-dynamic';
+
 import { useState } from "react";
 import {
   Card,

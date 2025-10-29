@@ -11,7 +11,6 @@ import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog"
-import { useAccount } from "@/lib/thirdweb-hooks";
 import { useRouter } from "next/navigation"
 import {
   Building2,
@@ -34,10 +33,8 @@ import {
   FileText,
   Award,
 } from "lucide-react"
-import ConnectWallet from "@/components/ConnectWallet"
-import { useDisconnect, useActiveWallet } from "thirdweb/react";
-import { Address } from "viem"
-import { getBasename } from "@superdevfavour/basename"
+import { PushWalletButton } from "@/components/PushWalletButton"
+import { usePushChainPayroll } from "@/hooks/usePushChainPayroll"
 
 function OrganizationRegistrationForm({ onComplete }: { onComplete: () => void }) {
   const [formData, setFormData] = useState({
@@ -158,50 +155,12 @@ function OrganizationRegistrationForm({ onComplete }: { onComplete: () => void }
 }
 
 export default function LandingPage() {
-  const { isConnected, account } = useAccount();
+  const { isConnected, account } = usePushChainPayroll();
   const router = useRouter()
   const [isRegistered, setIsRegistered] = useState(false)
   const [showRegistration, setShowRegistration] = useState(false)
-  const wallet = useActiveWallet();
-  const { disconnect } = useDisconnect();
-  const [basename, setBasename] = useState<string | null>(null);
-  const [isLoadingBasename, setIsLoadingBasename] = useState(false);
 
-  // Fetch Basename for connected wallet
-  useEffect(() => {
-    const fetchBasename = async () => {
-      if (!account?.address) {
-        setBasename(null);
-        return;
-      }
-
-      try {
-        setIsLoadingBasename(true);
-        const name = await getBasename(account.address as Address);
-        setBasename(name || null);
-      } catch (error) {
-        console.log("No Basename found or error fetching:", error);
-        setBasename(null);
-      } finally {
-        setIsLoadingBasename(false);
-      }
-    };
-
-    fetchBasename();
-  }, [account?.address]);
-
-  // Format display name: Basename or shortened address
-  const getDisplayName = () => {
-    if (isLoadingBasename && account) {
-      return "Loading...";
-    }
-    if (basename) {
-      return basename;
-    } else if (account?.address) {
-      return `${account.address.slice(0, 6)}...${account.address.slice(-4)}`;
-    }
-  };
-
+  // Check if user is registered
   useEffect(() => {
     if (account) {
       // TODO: Check backend if this wallet address is registered
@@ -210,6 +169,13 @@ export default function LandingPage() {
       setIsRegistered(!!registered)
     }
   }, [account])
+
+  // Auto-redirect to dashboard if connected and registered
+  useEffect(() => {
+    if (isConnected && isRegistered) {
+      router.push("/dashboard");
+    }
+  }, [isConnected, isRegistered, router])
 
   const handleRegistrationComplete = () => {
     if (account) {
@@ -228,7 +194,7 @@ export default function LandingPage() {
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
               <Building2 className="h-8 w-8 text-primary" />
-              <span className="text-xl font-bold text-white">Dizburza</span>
+              <span className="text-xl font-bold text-white">NairaRolls</span>
               <Badge className="ml-2 bg-gradient-to-r from-emerald-600 to-teal-600 text-white border-0">
                 Enterprise
               </Badge>
@@ -260,26 +226,7 @@ export default function LandingPage() {
               </Link>
             </div>
             <div className="flex items-center gap-3">
-              {isConnected ? (
-                <div className="flex items-center gap-2">
-                  <div className="flex items-center gap-2 text-sm text-slate-300">
-                    <Wallet className="h-4 w-4" />
-                    <span className="truncate">{getDisplayName()}</span>
-                  </div>
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    className="w-full border-slate-700 text-slate-300 hover:bg-slate-800 hover:text-white"
-                    onClick={() => wallet && disconnect(wallet)}
-                  >
-                    Disconnect
-                  </Button>
-                </div>
-              ) : (
-                <div className="flex justify-center">
-                  <ConnectWallet />
-                </div>
-              )}
+              <PushWalletButton />
             </div>
           </div>
         </div>
@@ -626,7 +573,7 @@ export default function LandingPage() {
         <div className="container mx-auto px-4 relative z-10">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold mb-4 text-slate-900 dark:text-white">
-              Why Choose Dizburza?
+              Why Choose NairaRolls?
             </h2>
             <p className="text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
               Measurable benefits that transform your payroll operations
@@ -674,7 +621,7 @@ export default function LandingPage() {
             </h2>
             <p className="text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
               From startups to government agencies, see how different
-              organizations use Dizburza
+              organizations use NairaRolls
             </p>
           </div>
 
@@ -829,7 +776,7 @@ export default function LandingPage() {
             Ready to Transform Your Payroll?
           </h2>
           <p className="text-xl text-primary-foreground/80 mb-8 max-w-2xl mx-auto">
-            Join hundreds of organizations already using Dizburza for secure,
+            Join hundreds of organizations already using NairaRolls for secure,
             compliant, and efficient payroll management.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -866,7 +813,7 @@ export default function LandingPage() {
             <div>
               <div className="flex items-center gap-2 mb-4">
                 <Building2 className="h-6 w-6 text-primary" />
-                <span className="text-lg font-bold text-white">Dizburza</span>
+                <span className="text-lg font-bold text-white">NairaRolls</span>
               </div>
               <p className="text-sm text-gray-400 mb-4">
                 Enterprise payroll management powered by Web3 technology and
@@ -1005,7 +952,7 @@ export default function LandingPage() {
 
           <div className="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center">
             <p className="text-sm text-gray-400">
-              © 2024 Dizburza. All rights reserved.
+              © 2024 NairaRolls. All rights reserved.
             </p>
             <div className="flex items-center gap-4 mt-4 md:mt-0">
               <span className="text-sm text-gray-400">Powered by</span>
@@ -1137,7 +1084,7 @@ const testimonials = [
     name: "Sarah Johnson",
     role: "CFO, TechCorp Nigeria",
     content:
-      "Dizburza transformed our payroll process. What used to take 3 days now happens in minutes, with complete security and transparency.",
+      "NairaRolls transformed our payroll process. What used to take 3 days now happens in minutes, with complete security and transparency.",
     rating: 5,
   },
   {

@@ -1,7 +1,7 @@
-# Dizburza - Enterprise Web3 Payroll Management
+# NairaRolls - Enterprise Web3 Payroll Management
 
 <div align="center">
-  <img src="/placeholder.svg?height=120&width=120" alt="Dizburza Logo" width="120" height="120">
+  <img src="/placeholder.svg?height=120&width=120" alt="NairaRolls Logo" width="120" height="120">
   
   **Secure, compliant, and transparent payroll management using MPC wallet technology and cNGN stablecoin.**
 
@@ -16,7 +16,9 @@
 
 ## 🚀 Overview
 
-Dizburza is an enterprise-grade payroll management platform that leverages Web3 technology to provide secure, transparent, and efficient payroll processing. Built with Multi-Party Computation (MPC) wallet technology and integrated with cNGN stablecoin, it offers unparalleled security and compliance for organizations across Nigeria and beyond.
+NairaRolls is an enterprise-grade payroll management platform that leverages Web3 technology to provide secure, transparent, and efficient payroll processing. Built with Multi-Party Computation (MPC) wallet technology and integrated with cNGN stablecoin, it offers unparalleled security and compliance for organizations across Nigeria and beyond.
+
+**🌐 NEW: Universal Wallet Support** - Now integrated with Push Chain UI Kit, enabling users from **any blockchain** (Ethereum, Solana, Polygon, Base, etc.) to connect and process payroll seamlessly!
 
 ### Key Benefits
 
@@ -24,7 +26,8 @@ Dizburza is an enterprise-grade payroll management platform that leverages Web3 
 - **⚡ Instant Settlements**: Process payroll in seconds, not days
 - **💰 Cost Efficient**: Reduce transaction fees by up to 90%
 - **📊 Audit Compliant**: Built-in audit trails and compliance reporting
-- **🌐 Multi-Chain Support**: Deploy across Base, Polygon, and BNB Chain
+- **🌐 Universal Chain Support**: Connect from ANY blockchain - EVM, Solana, and more
+- **🔐 Multiple Auth Methods**: Email, Google, or traditional wallet login
 
 ## ✨ Features
 
@@ -41,6 +44,7 @@ Dizburza is an enterprise-grade payroll management platform that leverages Web3 
 - **Custom Approval Workflows**: Define organization-specific approval processes
 - **Transaction History**: Complete blockchain transaction tracking
 - **Compliance Reporting**: Export audit reports with one click
+- **Universal Wallet Integration**: Push Chain UI Kit for cross-chain connectivity
 - **Multi-Network Support**: Cross-chain compatibility for maximum flexibility
 
 ## 🛠 Tech Stack
@@ -76,8 +80,8 @@ Dizburza is an enterprise-grade payroll management platform that leverages Web3 
 
 1. **Clone the repository**
    \`\`\`bash
-   git clone https://github.com/your-org/dizburza-frontend.git
-   cd dizburza-frontend
+   git clone https://github.com/your-org/NairaRolls-frontend.git
+   cd NairaRolls-frontend
    \`\`\`
 
 2. **Install dependencies**
@@ -112,7 +116,7 @@ Dizburza is an enterprise-grade payroll management platform that leverages Web3 
 ## 🏗 Project Structure
 
 \`\`\`
-dizburza-frontend/
+NairaRolls-frontend/
 ├── app/                          # Next.js App Router
 │   ├── (dashboard)/             # Dashboard layout group
 │   │   ├── dashboard/           # Main dashboard
@@ -252,8 +256,8 @@ npm run start
 
 ### Docker
 \`\`\`bash
-docker build -t dizburza-frontend .
-docker run -p 3000:3000 dizburza-frontend
+docker build -t NairaRolls-frontend .
+docker run -p 3000:3000 NairaRolls-frontend
 \`\`\`
 
 ## 🔐 Security
@@ -308,19 +312,19 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## 🆘 Support
 
 ### Documentation
-- [API Documentation](https://docs.dizburza.com)
-- [User Guide](https://help.dizburza.com)
-- [Developer Resources](https://dev.dizburza.com)
+- [API Documentation](https://docs.NairaRolls.com)
+- [User Guide](https://help.NairaRolls.com)
+- [Developer Resources](https://dev.NairaRolls.com)
 
 ### Community
-- [Discord Community](https://discord.gg/dizburza)
-- [GitHub Discussions](https://github.com/dizburza/frontend/discussions)
-- [Twitter](https://twitter.com/dizburza)
+- [Discord Community](https://discord.gg/NairaRolls)
+- [GitHub Discussions](https://github.com/NairaRolls/frontend/discussions)
+- [Twitter](https://twitter.com/NairaRolls)
 
 ### Enterprise Support
 For enterprise support and custom implementations:
-- Email: enterprise@dizburza.com
-- Schedule a demo: [calendly.com/dizburza](https://calendly.com/dizburza)
+- Email: enterprise@NairaRolls.com
+- Schedule a demo: [calendly.com/NairaRolls](https://calendly.com/NairaRolls)
 
 ## 🗺 Roadmap
 
@@ -345,11 +349,11 @@ For enterprise support and custom implementations:
 ---
 
 <div align="center">
-  <p>Built with ❤️ by the Dizburza team</p>
+  <p>Built with ❤️ by the NairaRolls team</p>
   <p>
-    <a href="https://dizburza.com">Website</a> •
-    <a href="https://docs.dizburza.com">Documentation</a> •
-    <a href="https://twitter.com/dizburza">Twitter</a> •
-    <a href="https://discord.gg/dizburza">Discord</a>
+    <a href="https://NairaRolls.com">Website</a> •
+    <a href="https://docs.NairaRolls.com">Documentation</a> •
+    <a href="https://twitter.com/NairaRolls">Twitter</a> •
+    <a href="https://discord.gg/NairaRolls">Discord</a>
   </p>
 </div>
