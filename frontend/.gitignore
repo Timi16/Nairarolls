@@ -10,3 +10,6 @@ yarn-error.log
 *.log
 *.lock 
 .next/
+.env.local
+.env.example
+.env

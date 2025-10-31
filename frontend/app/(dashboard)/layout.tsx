@@ -4,6 +4,10 @@ import { AppSidebar } from "@/components/layout/app-sidebar"
 import { NotificationCenter } from "@/components/notifications/notification-center"
 import { PushWalletButton } from "@/components/PushWalletButton"
 
+// Disable static generation for dashboard routes
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+
 export default function DashboardLayout({
   children,
 }: {
