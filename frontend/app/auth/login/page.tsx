@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -20,19 +20,25 @@ export default function LoginPage() {
   const [isLoading, setIsLoading] = useState(false)
   const [loginMethod, setLoginMethod] = useState<'wallet' | 'email'>('wallet')
   const { isConnected, account } = usePushChainPayroll();
-  const { setUser, setOrganization } = useAppStore()
+  const { setUser, setOrganization, user } = useAppStore()
   const router = useRouter()
 
+  // Auto-login when wallet is connected
+  useEffect(() => {
+    if (isConnected && account && !user) {
+      handleWalletLogin()
+    }
+  }, [isConnected, account])
+
   const handleWalletLogin = async () => {
+    if (!isConnected || !account) {
+      return;
+    }
+
     setIsLoading(true)
     try {
-      if (!isConnected) {
-        toast.warning("Please connect your wallet first.");
-        return;
-      }
-      
       // Simulate API call to verify wallet and get user data
-      await new Promise(resolve => setTimeout(resolve, 2000))
+      await new Promise(resolve => setTimeout(resolve, 1500))
       
       const mockUser = {
         id: '1',
@@ -54,11 +60,14 @@ export default function LoginPage() {
       setUser(mockUser)
       setOrganization(mockOrganization)
 
-      toast.success('Wallet connected successfully!')
+      toast.success('Login successful! Redirecting to dashboard...')
 
-      router.push('/dashboard')
+      // Redirect to dashboard
+      setTimeout(() => {
+        router.push('/dashboard')
+      }, 500)
     } catch (error) {
-      toast.error('An error occurred while connecting your wallet. Please try again later.')
+      toast.error('An error occurred while logging in. Please try again.')
     } finally {
       setIsLoading(false)
     }
@@ -162,27 +171,33 @@ export default function LoginPage() {
                 <div className="space-y-4">
                   <div className="text-center p-6 border-2 border-dashed border-muted rounded-lg">
                     <Wallet className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
-                    <h3 className="font-medium mb-2">Connect Your Wallet</h3>
+                    <h3 className="font-medium mb-2">
+                      {isLoading ? 'Logging you in...' : 'Connect Your Wallet'}
+                    </h3>
                     <p className="text-sm text-muted-foreground mb-4">
-                      Use your organization's MPC wallet to sign in securely
+                      {isLoading 
+                        ? 'Please wait while we verify your wallet and set up your session'
+                        : 'Connect with any wallet - Email, Google, MetaMask, or WalletConnect'
+                      }
                     </p>
-                    {/* <Button
-                      onClick={handleWalletLogin}
-                      disabled={isLoading}
-                      className="w-full"
-                      size="lg"
-                    >
-                      <Shield className="h-4 w-4 mr-2" />
-                      {isLoading ? 'Connecting...' : 'Connect Wallet'}
-                    </Button> */}
-                    <div className="flex justify-center">
-                      <PushWalletButton />
-                    </div>
+                    {isLoading ? (
+                      <div className="flex flex-col items-center gap-3">
+                        <div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin" />
+                        <p className="text-sm text-muted-foreground">Authenticating...</p>
+                      </div>
+                    ) : (
+                      <div className="flex justify-center">
+                        <PushWalletButton />
+                      </div>
+                    )}
                   </div>
 
                   <div className="text-center text-xs text-muted-foreground">
                     <p>
-                      Supports MetaMask, WalletConnect, and other Web3 wallets
+                      ✅ Email Login • ✅ Social Login (Google) • ✅ Traditional Wallets
+                    </p>
+                    <p className="mt-1">
+                      Supports any blockchain - Ethereum, Solana, Base, and more
                     </p>
                   </div>
                 </div>
