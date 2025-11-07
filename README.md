@@ -1,24 +1,54 @@
-# NairaRolls (NairaRolls) - Universal Web3 Payroll Platform
+# 💰 NairaRolls - Universal Web3 Payroll Platform
 
-> Enterprise-grade payroll management with **universal wallet support** - process payroll from any blockchain!
+> Enterprise-grade multi-signature payroll management with **universal wallet support** - process payroll from any blockchain with complete security and transparency!
 
 [![Next.js](https://img.shields.io/badge/Next.js-14-black?logo=next.js)](https://nextjs.org/)
 [![Solidity](https://img.shields.io/badge/Solidity-0.8.20-blue?logo=solidity)](https://soliditylang.org/)
 [![Push Chain](https://img.shields.io/badge/Push_Chain-Integrated-orange)](https://push.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue?logo=typescript)](https://www.typescriptlang.org/)
+[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
 ---
 
-## 🌟 What's New: Universal Wallet Support
+## 📖 Table of Contents
 
-**Your app now supports wallet connections from ANY blockchain!**
+- [Overview](#-overview)
+- [Key Features](#-key-features)
+- [Technology Stack](#️-technology-stack)
+- [Quick Start](#-quick-start)
+- [Project Structure](#-project-structure)
+- [Smart Contracts](#-smart-contracts)
+- [Development](#-development)
+- [Deployment](#-deployment)
+- [Documentation](#-documentation)
+- [Support](#-support)
 
-✅ **Ethereum** & all EVM chains (Polygon, Base, Arbitrum, Optimism, etc.)  
-✅ **Solana** native support  
-✅ **Email & Social Login** (Google, etc.)  
-✅ **Cross-chain payments** with single interface  
+---
 
-[**🚀 Quick Start Guide**](./QUICK_START_PUSH_CHAIN.md) | [**📖 Full Documentation**](./PUSH_CHAIN_INTEGRATION.md) | [**🔄 Migration Guide**](./MIGRATION_GUIDE.md)
+## 🎯 Overview
+
+NairaRolls is a **decentralized payroll management platform** that combines the security of multi-signature wallets with the flexibility of universal blockchain support. Built for enterprises and DAOs, it enables secure, transparent, and efficient salary distribution with customizable approval workflows.
+
+### 🌟 What Makes NairaRolls Special?
+
+**🔐 Multi-Signature Security**
+- Customizable quorum requirements (60-100%)
+- Per-batch signer configuration
+- No single point of failure
+- On-chain audit trails
+
+**🌐 Universal Wallet Support**
+- Connect from **any blockchain** - EVM, Solana, and more
+- **Email & Social Login** - Google, traditional wallets
+- **Cross-chain payments** - Process payroll from any chain
+- Powered by [Push Chain](https://push.org/)
+
+**💼 Enterprise-Ready**
+- Batch payments up to 100 employees
+- CSV bulk import
+- Approval workflows
+- Complete transaction history
+- 30-day batch expiry for safety
 
 ---
 
@@ -84,14 +114,28 @@ npm install
 
 ### 2. Configure Environment
 
-```bash
-# Copy example env file
-cp .env.example .env.local
+Create a `.env.local` file in the `frontend` directory:
 
-# Add your keys
-THIRDWEB_CLIENT_ID=your_client_id
-THIRDWEB_SECRET_KEY=your_secret_key
+```bash
+cd frontend
+
+# Create environment file
+cat > .env.local << EOF
+# Thirdweb Configuration (for EVM wallet support)
+THIRDWEB_CLIENT_ID=your_thirdweb_client_id
+THIRDWEB_SECRET_KEY=your_thirdweb_secret_key
+
+# Smart Contract Address (Base Sepolia)
+BATCH_PAYROLL_ADDRESS=your_deployed_contract_address
+
+# Optional: RPC URLs
+NEXT_PUBLIC_BASE_SEPOLIA_RPC=https://sepolia.base.org
+EOF
 ```
+
+**Get Your API Keys:**
+- **Thirdweb**: [Get API Key](https://thirdweb.com/dashboard/settings/api-keys)
+- **Push Chain**: No API key required - integrated via `@pushchain/ui-kit`
 
 ### 3. Run Development Server
 
@@ -105,31 +149,43 @@ Visit:
 
 ---
 
-## 🎯 Key Features
+## ✨ Key Features
 
-### 🔐 Security
-- **Multi-signature approvals** with customizable quorum
-- **MPC wallet technology** - no single point of failure
-- **On-chain audit trails** for compliance
-- **30-day transaction expiry** for safety
+### 🔐 Multi-Signature Security
+- **Customizable Quorum**: Set approval thresholds from 60-100%
+- **Per-Batch Signers**: Configure different signers for each payment batch
+- **MPC Wallet Technology**: No single point of failure
+- **On-Chain Audit Trails**: Complete transparency and compliance
+- **Automatic Expiry**: 30-day batch expiry for enhanced safety
+- **Reentrancy Protection**: OpenZeppelin security standards
 
-### 🌐 Universal Wallet Support (NEW!)
-- **Connect from any blockchain** - EVM, Solana, and more
-- **Multiple auth methods** - Email, Google, traditional wallets
-- **Cross-chain payments** - Process payroll from any chain
-- **Seamless UX** - Single interface for all chains
+### 🌐 Universal Wallet Support
+- **Multi-Chain Connectivity**: EVM (Ethereum, Polygon, Base, Arbitrum), Solana, and more
+- **Flexible Authentication**: 
+  - Traditional wallet connections (MetaMask, WalletConnect)
+  - Email login
+  - Social login (Google, etc.)
+- **Cross-Chain Payments**: Process payroll from any supported blockchain
+- **Unified Interface**: Single UX for all chains via Push Chain integration
 
-### 💼 Payroll Management
-- **Batch payments** - Up to 100 employees per batch
-- **CSV import** - Bulk employee data upload
-- **Approval workflows** - Configurable signatory requirements
-- **Transaction tracking** - Complete payment history
+### 💼 Enterprise Payroll Management
+- **Batch Processing**: Handle up to 100 employees per payment batch
+- **CSV Import**: Bulk upload employee data with wallet addresses
+- **Flexible Workflows**: 
+  - Create payment batches with custom names
+  - Configure approval requirements per batch
+  - Track approval progress in real-time
+- **Employee Management**: Add, edit, and manage employee records
+- **Transaction History**: Complete audit trail of all payments
+- **Status Tracking**: Monitor pending, approved, and executed batches
 
-### 🎨 Modern UI/UX
-- **Next.js 14** with App Router
-- **shadcn/ui** components
-- **Dark mode** support
-- **Responsive design**
+### 🎨 Modern User Experience
+- **Next.js 14 App Router**: Server-side rendering and optimal performance
+- **shadcn/ui Components**: Beautiful, accessible UI components
+- **Dark Mode**: Full dark mode support
+- **Responsive Design**: Works seamlessly on desktop, tablet, and mobile
+- **Real-time Updates**: Live status updates via Zustand state management
+- **Toast Notifications**: User-friendly feedback with Sonner
 
 ---
 
@@ -174,15 +230,73 @@ Visit:
 
 ---
 
+## 📋 How It Works
+
+### Payment Batch Workflow
+
+```
+1. CREATE BATCH
+   ↓
+   Admin creates payment batch with:
+   - Batch name (e.g., "December_2024_Salary")
+   - Authorized signers (3-20 addresses)
+   - Quorum requirement (60-100%)
+   - Employee recipients & amounts
+   
+2. APPROVAL PHASE
+   ↓
+   Signers review and approve:
+   - View batch details
+   - Approve or reject with reason
+   - Track approval progress
+   - Automatic quorum calculation
+   
+3. EXECUTION
+   ↓
+   When quorum reached:
+   - Creator executes batch
+   - Funds distributed to all employees
+   - Transaction recorded on-chain
+   - Status updated to "Executed"
+```
+
+### 5-Step Payment Creation
+
+1. **Batch Details**: Set name and approval percentage
+2. **Configure Signers**: Add 3-20 wallet addresses
+3. **Select Employees**: Choose recipients from employee list
+4. **Set Amounts**: Review and adjust payment amounts
+5. **Review & Confirm**: Final review before submission
+
+### User Roles
+
+**👨‍💼 Admin/Creator**
+- Create payment batches
+- Add/manage employees
+- Execute approved batches
+- View all transactions
+
+**✍️ Signer**
+- Review pending batches
+- Approve or reject batches
+- View batch details
+- Track approval status
+
+**👤 Employee**
+- Receive payments to wallet
+- View transaction history
+
+---
+
 ## 🎮 Demo & Testing
 
 ### Universal Wallet Demo
-Visit `/push-chain-demo` to see:
-- ✅ Wallet connection from any chain
-- ✅ Single payment processing
-- ✅ Batch payment demonstration
-- ✅ Transaction tracking
-- ✅ Integration examples
+Visit `/push-chain-demo` to test:
+- ✅ **Wallet Connection**: Connect from any blockchain
+- ✅ **Single Payment**: Send test payment to an address
+- ✅ **Batch Payment**: Process multiple payments at once
+- ✅ **Transaction Tracking**: View transaction hashes and explorer links
+- ✅ **Integration Examples**: See code examples for your own implementation
 
 ### Test Accounts
 Sample employees in `employees.csv`:
@@ -192,25 +306,75 @@ Abdul Olamide,0x937fBAbFE1c8d1C8fFbeB99e7CD89d2c24ac0937,Software Engineer,75000
 Dami Lola,0x51cAd5B8e0ad2C427e7748E275A2eb2523a1556B,Designer,750000000000
 ```
 
+**Note**: Salary amounts are in token base units (6 decimals for cNGN)
+
 ---
 
 ## 🔧 Development
 
 ### Frontend Development
+
 ```bash
 cd frontend
-npm run dev      # Start dev server
-npm run build    # Build for production
-npm run lint     # Run linter
+
+# Development
+npm run dev          # Start dev server (http://localhost:3000)
+npm run build        # Build for production
+npm run start        # Start production server
+npm run lint         # Run ESLint
+
+# Key Development Routes
+# - /                     → Landing page
+# - /dashboard            → Main dashboard
+# - /employees            → Employee management
+# - /employees/new        → Add new employee
+# - /employees/upload     → CSV bulk upload
+# - /payments             → Payment history
+# - /payments/new         → Create payment batch (5-step wizard)
+# - /approvals            → Approve/reject batches
+# - /transactions         → Transaction history
+# - /settings             → App settings
+# - /push-chain-demo      → Universal wallet demo
 ```
 
 ### Smart Contract Development
+
 ```bash
 cd NairaRollsMultisig
-forge build      # Compile contracts
-forge test       # Run tests
-forge script script/DeployV2.s.sol --rpc-url $BASE_SEPOLIA_RPC_URL --broadcast
+
+# Compile contracts
+forge build
+
+# Run tests
+forge test
+forge test -vvv              # Verbose output
+forge test --match-test testCreateBatch  # Run specific test
+
+# Deploy to Base Sepolia
+forge script script/DeployV2.s.sol \
+  --rpc-url $BASE_SEPOLIA_RPC_URL \
+  --private-key $PRIVATE_KEY \
+  --broadcast \
+  --verify
+
+# Local testing with Anvil
+anvil                        # Start local node
+forge script script/DeployV2.s.sol --rpc-url http://localhost:8545 --broadcast
 ```
+
+### Project Scripts
+
+**Frontend (`frontend/package.json`):**
+- `dev` - Start Next.js development server
+- `build` - Create production build
+- `start` - Start production server
+- `lint` - Run ESLint checks
+
+**Smart Contracts:**
+- `forge build` - Compile Solidity contracts
+- `forge test` - Run contract tests
+- `forge fmt` - Format Solidity code
+- `forge snapshot` - Generate gas snapshots
 
 ---
 
@@ -231,18 +395,64 @@ forge script script/DeployV2.s.sol --rpc-url $BASE_SEPOLIA_RPC_URL --broadcast
 
 ---
 
-## 📦 Smart Contract Versions
+## 📦 Smart Contracts
+
+NairaRolls includes two versions of multi-signature payroll contracts, each optimized for different use cases.
+
+### Version 2 (v2/) - **Recommended** ⭐
+
+**BatchPayrollMultisig.sol** - Modern batch-centric payroll system
+
+**Key Features:**
+- ✅ **Per-Batch Signers**: Configure different signers for each payment batch
+- ✅ **String-Based IDs**: Human-readable batch names (e.g., "December_2024_Salary")
+- ✅ **Flexible Quorum**: Set custom approval thresholds per batch (60-100%)
+- ✅ **Batch Limits**: Up to 100 recipients per batch
+- ✅ **Automatic Expiry**: 30-day expiration for enhanced security
+- ✅ **Gas Optimized**: Custom errors and efficient storage patterns
+
+**Core Functions:**
+```solidity
+createBatchPayroll(string batchName, address[] signers, uint256 quorum, 
+                   address[] recipients, uint256[] amounts)
+approveBatch(string batchName)
+executeBatchPayroll(string batchName)
+```
+
+**Use Cases:**
+- Organizations with varying approval requirements
+- Projects needing different signers for different departments
+- Teams requiring flexible, human-readable batch identification
 
 ### Version 1 (v1/)
-- **NairaRollsMultisig.sol** - Transaction-based multisig
-- **NairaRollsMultisigFactory.sol** - Factory for deployment
-- Features: Global signers, transaction IDs, emergency pause
 
-### Version 2 (v2/) - Recommended
-- **BatchPayrollMultisig.sol** - Batch-centric design
-- Features: Per-batch signers, string-based IDs, flexible quorum
-- Max 100 recipients per batch
-- 30-day expiry per batch
+**NairaRollsMultisig.sol** - Traditional transaction-based multisig
+
+**Key Features:**
+- Global signer configuration
+- Numeric transaction IDs
+- Emergency pause functionality
+- Factory pattern deployment via **NairaRollsMultisigFactory.sol**
+
+**Use Cases:**
+- Organizations with fixed signer sets
+- Projects requiring emergency pause capabilities
+- Traditional multisig wallet patterns
+
+### Contract Addresses
+
+**Base Sepolia Testnet:**
+- BatchPayrollMultisig (v2): `[Deployed Address]`
+- cNGN Token: `[Token Address]`
+
+### Security Features (Both Versions)
+
+- ✅ **OpenZeppelin Libraries**: Industry-standard security
+- ✅ **Reentrancy Protection**: SafeERC20 for token transfers
+- ✅ **Access Control**: Signer-only functions
+- ✅ **Input Validation**: Comprehensive checks on all parameters
+- ✅ **Event Logging**: Complete audit trail
+- ✅ **Gas Optimization**: Custom errors instead of require strings
 
 ---
 
@@ -296,39 +506,206 @@ MIT License - see LICENSE file for details
 
 ---
 
-## 🆘 Support
+## 🐛 Troubleshooting
 
-### Documentation
-- Check `/push-chain-demo` for live examples
-- Read integration docs in root directory
-- Review frontend README
+### Common Issues
 
-### External Resources
-- [Push Chain Docs](https://pushchain.github.io/push-chain-website/)
-- [Thirdweb Docs](https://portal.thirdweb.com/)
+**Build Error: `useActiveAccount must be used within <ThirdwebProvider>`**
+- **Solution**: Already fixed! Pages now use `dynamic = 'force-dynamic'` to prevent static generation
+- If you encounter this, ensure your page has:
+  ```typescript
+  export const dynamic = 'force-dynamic';
+  export const revalidate = 0;
+  ```
+
+**Wallet Connection Issues**
+- Clear browser cache and cookies
+- Try a different wallet or connection method
+- Check that you're on the correct network (Base Sepolia)
+- Ensure wallet has test ETH for gas fees
+
+**Contract Interaction Failures**
+- Verify contract address in `.env.local`
+- Check wallet has sufficient token balance
+- Ensure you're connected to Base Sepolia testnet
+- Verify you're an authorized signer for the batch
+
+**CSV Upload Errors**
+- Ensure CSV format matches: `name,walletaddress,role,salary`
+- Wallet addresses must be valid Ethereum addresses (0x...)
+- Salary amounts should be in base units (6 decimals)
+- Check for special characters or encoding issues
+
+### Getting Help
+
+**📚 Documentation**
+- [Quick Start Guide](./QUICK_START_PUSH_CHAIN.md) - 5-minute setup
+- [Push Chain Integration](./PUSH_CHAIN_INTEGRATION.md) - Technical details
+- [Migration Guide](./MIGRATION_GUIDE.md) - Upgrade existing code
+- [Frontend README](./frontend/README.md) - Frontend documentation
+
+**🔗 External Resources**
+- [Push Chain Documentation](https://pushchain.github.io/push-chain-website/)
+- [Thirdweb Portal](https://portal.thirdweb.com/)
 - [Foundry Book](https://book.getfoundry.sh/)
+- [Next.js Documentation](https://nextjs.org/docs)
+- [Base Sepolia Faucet](https://www.coinbase.com/faucets/base-ethereum-goerli-faucet)
 
-### Community
-- GitHub Issues for bug reports
-- GitHub Discussions for questions
-- Push Chain Discord for wallet support
+**💬 Community & Support**
+- **GitHub Issues**: Report bugs and feature requests
+- **GitHub Discussions**: Ask questions and share ideas
+- **Push Chain Discord**: Get help with wallet integration
+- **Base Discord**: Network-specific support
 
 ---
 
-## 🎉 What's Next?
+## 🎉 Getting Started Checklist
 
-1. **Test the demo** - Visit `/push-chain-demo`
-2. **Connect a wallet** - Try email, Google, or traditional wallet
-3. **Process a payment** - Test cross-chain functionality
-4. **Integrate into your flows** - Add universal wallet to your pages
-5. **Deploy** - Ship to production!
+Ready to use NairaRolls? Follow these steps:
+
+- [ ] **Clone the repository** and install dependencies
+- [ ] **Set up environment variables** (Thirdweb API keys, contract address)
+- [ ] **Run the development server** (`npm run dev`)
+- [ ] **Connect a wallet** - Try Push Chain universal wallet
+- [ ] **Add test employees** - Use CSV upload or manual entry
+- [ ] **Create a payment batch** - Follow the 5-step wizard
+- [ ] **Test approval workflow** - Connect as different signers
+- [ ] **Execute a batch** - Complete the full payment flow
+- [ ] **Explore the demo** - Visit `/push-chain-demo` for examples
+- [ ] **Deploy your contracts** - Use Foundry to deploy to Base Sepolia
+- [ ] **Ship to production** - Deploy frontend to Vercel
+
+---
+
+## 🗺️ Roadmap
+
+### ✅ Completed
+- Multi-signature payroll smart contracts (v1 & v2)
+- Next.js 14 frontend with App Router
+- Universal wallet support via Push Chain
+- CSV employee import
+- 5-step payment batch creation
+- Approval workflow UI
+- Transaction history tracking
+- Dark mode support
+
+### 🚧 In Progress
+- Enhanced analytics dashboard
+- Email notifications for approvals
+- Mobile app (React Native)
+- Additional chain support
+
+### 📋 Planned Features
+- **Recurring Payments**: Automated monthly/weekly payroll
+- **Payment Scheduling**: Schedule batches for future execution
+- **Multi-Token Support**: Pay in different stablecoins (USDC, USDT, DAI)
+- **Advanced Reporting**: Export reports, tax documents
+- **Role-Based Access Control**: Granular permissions
+- **Webhook Integration**: Notify external systems
+- **API Access**: RESTful API for integrations
+- **Audit Logs**: Detailed activity tracking
+- **2FA Authentication**: Additional security layer
+- **Contract Upgrades**: Proxy pattern for upgradeability
+
+---
+
+## 🤝 Contributing
+
+We welcome contributions! Here's how you can help:
+
+### Ways to Contribute
+
+1. **🐛 Report Bugs**: Open an issue with detailed reproduction steps
+2. **💡 Suggest Features**: Share your ideas in GitHub Discussions
+3. **📝 Improve Documentation**: Fix typos, add examples, clarify instructions
+4. **🔧 Submit Code**: Fix bugs or implement new features
+5. **🎨 Design**: Improve UI/UX, create mockups
+6. **🧪 Testing**: Write tests, report edge cases
+
+### Development Workflow
+
+```bash
+# 1. Fork the repository
+# 2. Clone your fork
+git clone https://github.com/YOUR_USERNAME/Nairarolls.git
+cd Nairarolls
+
+# 3. Create a feature branch
+git checkout -b feature/your-feature-name
+
+# 4. Make your changes
+# - Write clean, documented code
+# - Follow existing code style
+# - Add tests if applicable
+
+# 5. Test your changes
+cd frontend && npm run build  # Ensure build succeeds
+cd ../NairaRollsMultisig && forge test  # Run contract tests
+
+# 6. Commit and push
+git add .
+git commit -m "feat: add your feature description"
+git push origin feature/your-feature-name
+
+# 7. Open a Pull Request
+# - Describe your changes
+# - Link related issues
+# - Wait for review
+```
+
+### Code Standards
+
+- **TypeScript**: Use strict typing, avoid `any`
+- **Solidity**: Follow Solidity style guide, use NatSpec comments
+- **React**: Use functional components and hooks
+- **Testing**: Write tests for new features
+- **Documentation**: Update README and docs for significant changes
+
+---
+
+## 📄 License
+
+This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) file for details.
+
+### What This Means
+
+✅ **Commercial Use**: Use in commercial projects  
+✅ **Modification**: Modify and adapt the code  
+✅ **Distribution**: Share and distribute freely  
+✅ **Private Use**: Use privately without restrictions  
+
+⚠️ **No Warranty**: Software provided "as is"  
+⚠️ **Liability**: Authors not liable for damages  
+
+---
+
+## 🙏 Acknowledgments
+
+Built with amazing open-source technologies:
+
+- **[Push Chain](https://push.org/)** - Universal wallet infrastructure
+- **[Thirdweb](https://thirdweb.com/)** - Web3 development tools
+- **[Next.js](https://nextjs.org/)** - React framework
+- **[Foundry](https://getfoundry.sh/)** - Ethereum development toolkit
+- **[OpenZeppelin](https://openzeppelin.com/)** - Smart contract libraries
+- **[shadcn/ui](https://ui.shadcn.com/)** - Beautiful UI components
+- **[Tailwind CSS](https://tailwindcss.com/)** - Utility-first CSS
+- **[Base](https://base.org/)** - Ethereum L2 network
+
+Special thanks to the Web3 community for continuous innovation! 🚀
 
 ---
 
 <div align="center">
 
+### 💰 NairaRolls
+
+**Enterprise-grade Web3 payroll for the modern world**
+
+[🚀 Quick Start](./QUICK_START_PUSH_CHAIN.md) • [📖 Documentation](./PUSH_CHAIN_INTEGRATION.md) • [🎮 Live Demo](http://localhost:3000/push-chain-demo)
+
 **Built with ❤️ for universal Web3 payroll**
 
-[Demo](http://localhost:3000/push-chain-demo) • [Docs](./PUSH_CHAIN_INTEGRATION.md) • [Quick Start](./QUICK_START_PUSH_CHAIN.md)
+⭐ Star us on GitHub if you find this project useful!
 
 </div>

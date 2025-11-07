@@ -189,12 +189,14 @@ export default function RegisterPage() {
       setRegistrationData(registrationData);
 
       toast({
-        title: "Registration successful!",
-        description: "Welcome to NairaRolls. Check your email for next steps.",
+        title: "Account created successfully!",
+        description: "Your organization has been registered. Redirecting to dashboard...",
       });
 
-      // Redirect to onboarding or dashboard
-      router.push("/dashboard");
+      // Redirect to dashboard after a short delay
+      setTimeout(() => {
+        router.push("/dashboard");
+      }, 1500);
     } catch (error) {
       toast({
         title: "Registration failed",
@@ -397,11 +399,16 @@ export default function RegisterPage() {
             <div className="p-4 bg-muted rounded-lg">
               <h4 className="font-medium mb-2">What happens next?</h4>
               <ul className="text-sm text-muted-foreground space-y-1">
-                <li>• We'll review your application within 24 hours</li>
-                <li>• You'll receive setup instructions via email</li>
-                <li>• Our team will help you configure your MPC wallet</li>
-                <li>• Start processing payroll immediately</li>
+                <li>• Your account will be created instantly</li>
+                <li>• You'll be redirected to the dashboard</li>
+                <li>• Connect your wallet to start using the platform</li>
+                <li>• Begin processing payroll with multi-signature security</li>
               </ul>
+              <div className="mt-3 p-3 bg-blue-50 dark:bg-blue-950 border border-blue-200 dark:border-blue-800 rounded-md">
+                <p className="text-xs text-blue-900 dark:text-blue-100">
+                  <strong>Note:</strong> This is a demo registration. In production, you would receive email verification and onboarding instructions.
+                </p>
+              </div>
             </div>
           </div>
         );
